@@ -202,11 +202,13 @@ def pedidos():
                 vrPieza.stock_pendiente += pedido.cant_piezas
                 formatearPieza(vrPieza)
                 pickle.dump(vrPieza, alPiezas)
+                alPiezas.flush()
                     
                 formatearPedido(pedido)
                 t = os.path.getsize(afPedidos)
                 alPedidos.seek(t)
                 pickle.dump(pedido, alPedidos)
+                alPedidos.flush()
                 
         
         nro_pieza = int(input("Ingrese el número de pieza a pedir, ingrese 0 para volver a la sección anterior "))
@@ -250,3 +252,7 @@ else:
 
 inicializarMateriales() 
 menuPrincipal()
+
+alPiezas.close()
+alPedidos.close()
+alMateriales.close()

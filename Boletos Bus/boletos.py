@@ -174,3 +174,6 @@ alEmpresa = open (afEmpresa, "w+b")
 inicializarEmpresas(afEmpresa, alEmpresa)
 
 menuPrincipal()
+
+alEmpresa.close()
+alBoleto.close()
