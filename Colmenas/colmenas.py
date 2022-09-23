@@ -89,7 +89,7 @@ def posicionarseEnColmena(codigoColmena):
 
     t = os.path.getsize(afColmenas)
     alColmenas.seek(0, 0)
-    while alColmenas.tell()<t and aux.codigo_colmena != codigoColmena:
+    while alColmenas.tell()<t and int(aux.codigo_colmena) != codigoColmena:
         pos = alColmenas.tell()
         aux = pickle.load(alColmenas)
     return pos
