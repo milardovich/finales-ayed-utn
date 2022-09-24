@@ -77,6 +77,39 @@ def informeDiario():
     print("Zona con mayor polución: "+str(zonaMas))
     print("Zona con menor polución: "+str(zonaMenos))
 
+def generarMaestro():
+    global afMaestro, alMaestro, afMediciones, alMediciones
+
+    tmaestro = os.path.getsize(afMaestro)
+    alMaestro.seek(tmaestro)
+
+    t = os.path.getsize(afMediciones)
+    alMediciones.seek(0)
+    while alMediciones.tell() < t:
+        aux = pickle.load(alMediciones)
+        pickle.dump(aux, alMaestro)
+    
+    print("Mediciones insertadas al archivo maestro")
+
+def limpiarTarjeta():
+    os.remove(afMediciones)
+    print("Tarjeta Limpiada")
+
+def menu():
+    opt = 1
+    while opt != 0:
+        print("Seleccione una opcion: \n1- Informe Diario\n2- Generar Maestro\n3- Limpiar Tarjeta\n0- Salir")
+        opt = int(input(" "))
+        while opt < 0 or opt > 3:
+            opt = int(input("Ingrese una opción correcta: "))
+        
+        if opt == 1:
+            informeDiario()
+        elif opt == 2:
+            generarMaestro()
+        elif opt == 3:
+            limpiarTarjeta()
+
 afMediciones = "./mediciones.dat"
 alMediciones = open (afMediciones, "w+b")
 
@@ -87,7 +120,7 @@ else:
     alMaestro = open(afMaestro, "r+b")
 
 inicializarMediciones()
-informeDiario()
+menu()
 
 alMediciones.close()
 alMaestro.close()
